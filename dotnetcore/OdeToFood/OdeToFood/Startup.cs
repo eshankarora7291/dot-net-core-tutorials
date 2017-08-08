@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Routing;
 using OdeToFood.Services;
 using OdeToFood.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 //using Microsoft.AspNetCore.StaticFiles;
 
 namespace OdeToFood
@@ -32,6 +33,8 @@ namespace OdeToFood
             services.AddSingleton<IGreeter, Greeter>();
             services.AddScoped<IRestaurantData, SQLRestaurantData>();
             services.AddDbContext<OdeToFoodDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("OdeToFood")));
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<OdeToFoodDbContext>();
             //anytime u need  Irestaurantdata use inmemoryrestaurantdata
             //scoped means one instance of this service for each HTTP request.
         }
@@ -62,6 +65,7 @@ namespace OdeToFood
             //app.UseDefaultFiles();    
              app.UseStaticFiles();
             // app.UseMiddleware<StaticFileMiddleware>(new StaticFileOptions());
+            app.UseIdentity(); 
             app.UseMvc(ConfigureRoutes);
             // app.UseMvcWithDefaultRoute();
             //this middleware is going to look at an incoming http request and will try to map
