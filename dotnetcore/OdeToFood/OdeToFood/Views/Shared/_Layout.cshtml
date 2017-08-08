@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div>
+        @RenderBody()
+        <!--everuthing in the index.cshtml view and all the html it produces will be placed here-->
+    </div>
+    <footer>
+        @RenderSection("footer",required:false)
+        @await Component.InvokeAsync("Greeting")
+        <!--await-something related to task-->
+    </footer>
+</body>
+</html>

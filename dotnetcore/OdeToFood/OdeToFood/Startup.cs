@@ -6,6 +6,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Routing;
 using OdeToFood.Services;
+using OdeToFood.Entities;
+using Microsoft.EntityFrameworkCore;
 //using Microsoft.AspNetCore.StaticFiles;
 
 namespace OdeToFood
@@ -28,7 +30,8 @@ namespace OdeToFood
             services.AddMvc();
             services.AddSingleton(Configuration);   
             services.AddSingleton<IGreeter, Greeter>();
-            services.AddScoped<IRestaurantData, InMemoryRestaurantData>();
+            services.AddScoped<IRestaurantData, SQLRestaurantData>();
+            services.AddDbContext<OdeToFoodDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("OdeToFood")));
             //anytime u need  Irestaurantdata use inmemoryrestaurantdata
             //scoped means one instance of this service for each HTTP request.
         }

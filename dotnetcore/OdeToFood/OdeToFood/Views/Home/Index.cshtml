@@ -1,22 +1,41 @@
 ﻿@model OdeToFood.ViewModels.HomePageViewModel
 <!--this is a directive-to understand what model this view should be accepting-->
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title>OdeToFood</title>
-</head>
-<body>
-    <h1>Welcome</h1>
-    <h3>@Model.CurrentMessage</h3>
-    <table>
-        @foreach (var restaurant in Model.Restaurants)
-        {
-            <tr>
-                <td>@restaurant.Id</td>
-                <td>@restaurant.Name</td>
+@{ 
+    ViewBag.Title = "Home";
+ 
+}
+<h1>Welcome</h1>
 
-            </tr>
-        }
-      
-    </table>
-    </body>
-</html>
+@foreach (var restaurant in Model.Restaurants)
+{
+    @Html.Partial("_Summary",restaurant)
+}
+@*<table>
+    @foreach (var restaurant in Model.Restaurants)
+    {
+        <tr>
+         
+            <td>@restaurant.Name</td>
+            <td>
+                <!--tag helpers,are evaluated on the srever-->
+                <a asp-action="Details" asp-route-id="@restaurant.Id">Detail</a>
+                <a href="/home/details/@restaurant.Id">@restaurant.Id</a>
+                <!--html helpers-->
+                @Html.ActionLink("about", "Details", new { id = restaurant.Id })
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@restaurant.Id">Edit</a>
+            </td>
+
+        </tr>
+    }
+  
+
+</table>*@
+<div>
+    <a asp-controller="Home" asp-action="Create">Create</a>
+</div>
+
+@*@section footer{
+<h3>@Model.CurrentMessage</h3> 
+}*@
