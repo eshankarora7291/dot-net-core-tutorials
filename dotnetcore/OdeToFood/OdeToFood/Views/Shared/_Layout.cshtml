@@ -7,6 +7,9 @@
 </head>
 <body>
     <div>
+        @await Component.InvokeAsync("LoginLogout")
+    </div>
+    <div>
         @RenderBody()
         <!--everuthing in the index.cshtml view and all the html it produces will be placed here-->
     </div>
