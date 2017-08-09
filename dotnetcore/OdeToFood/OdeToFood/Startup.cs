@@ -65,13 +65,14 @@ namespace OdeToFood
             //app.UseDefaultFiles();    
              app.UseStaticFiles();
             // app.UseMiddleware<StaticFileMiddleware>(new StaticFileOptions());
+            app.UseNodeModules(env.ContentRootPath);
             app.UseIdentity(); 
             app.UseMvc(ConfigureRoutes);
             // app.UseMvcWithDefaultRoute();
             //this middleware is going to look at an incoming http request and will try to map
             //that request to a method on a C# class and what the mvc framework will do is instantiate
             //a class,invoke a method and that method will tellthe mvc framework what to do next.
-            app.Run(ctx => ctx.Response.WriteAsync("not found"));
+           // app.Run(ctx => ctx.Response.WriteAsync("not found"));
         }
         //CONVENTION BASED ROUTING
         private void ConfigureRoutes(IRouteBuilder routeBuilder)
